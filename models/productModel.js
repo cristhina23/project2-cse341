@@ -23,6 +23,11 @@ const productSchema = new mongoose.Schema({
     required: [true, 'Stock quantity is required'],
     min: [0, 'Stock cannot be negative']
   },
+  image: {
+    type: String,
+    required: [true, 'Image is required'],
+    trim: true
+  },
   category: {
     type: String,
     enum: ['clothes', 'electronics', 'food', 'accessories', 'other'],

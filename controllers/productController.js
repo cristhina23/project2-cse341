@@ -4,7 +4,7 @@ const getAllProducts = async (req, res, next) => {
   try {
     const products = await Product.find();
 
-    if (!products || response.length === 0) {
+    if (!products || products.length === 0) {
       const error = new Error("There is not product to show yet");
       error.status = 404;
       return next(error);
@@ -20,7 +20,7 @@ const getAllProducts = async (req, res, next) => {
 
 const createProduct = async (req, res, next) => {
   try {
-    const { name, description, price, stock, category } = req.body;
+    const { name, description, price, stock, category, image } = req.body;
 
     if (!name || !price || !stock) {
       const error = new Error("Name, price, and stock are required");
@@ -39,6 +39,7 @@ const createProduct = async (req, res, next) => {
       description,
       price,
       stock,
+      image,
       category
     });
 
@@ -78,31 +79,34 @@ const getProductById = async (req, res, next) => {
 }
 
 const updateProductById = async (req, res, next) => {
-    try {
-      const productId = req.params.id;
+  try {
+    const productId = req.params.id;
+    const productData = req.body;
 
-    const existingProduct = Product.findById(productId)
-
+    
+    const existingProduct = await Product.findById(productId);
     if (!existingProduct) {
       const error = new Error("Product not found");
       error.status = 404;
       return next(error);
     }
 
-    const updatedProduct = Product.findByIdAndUpdate(
+    const updatedProduct = await Product.findByIdAndUpdate(
       productId,
-      req.body,      
-      { new: true, runValidators: true } 
+      productData,
+      { new: true, runValidators: true }
     );
+
     res.status(200).json({
       success: true,
       data: updatedProduct,
       message: "Product updated successfully"
     });
-    } catch(error) {
-      next(error)
-    }
-} 
+
+  } catch (error) {
+    next(error);
+  }
+};
 
 
 const deleteProductById = async (req, res, next) => {
