@@ -11,4 +11,9 @@ router.get("/:id",
      #swagger.description = 'Get a single user by ID' */
   userController.getUserById);
 
+router.put("/:id",
+  /* #swagger.tags = ['Users']
+     #swagger.description = 'Update a user by ID' */
+  userController.updateUserById);
+
 module.exports = router;

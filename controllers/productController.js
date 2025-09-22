@@ -91,11 +91,16 @@ const updateProductById = async (req, res, next) => {
       return next(error);
     }
 
-    const updatedProduct = await Product.findByIdAndUpdate(
-      productId,
-      productData,
-      { new: true, runValidators: true }
-    );
+    const updatedProduct = {
+      name: productData.name || existingProduct.name,
+      description: productData.description || existingProduct.description,
+      price: productData.price || existingProduct.price,
+      stock: productData.stock || existingProduct.stock,
+      image: productData.image || existingProduct.image,
+      category: productData.category || existingProduct.category
+    };
+
+    const product = await Product.findByIdAndUpdate(productId, updatedProduct, { new: true });
 
     res.status(200).json({
       success: true,

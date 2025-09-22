@@ -26,4 +26,20 @@ const getUserById = async (req, res, next) => {
   }
 };
 
-module.exports = { getUsers, getUserById };
+const updateUserById = async (req, res, next) => {
+  try {
+    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    if (!user) {
+      const err = new Error("User not found");
+      err.status = 404;
+      return next(err);
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { getUsers, getUserById, updateUserById };
