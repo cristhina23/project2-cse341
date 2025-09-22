@@ -72,7 +72,9 @@ const updateOrder = async (req, res, next) => {
 
 const deleteOrder = async (req, res, next) => {
   try {
-   
+   const orderId = req.params.id;
+   const deletedOrder = await Order.findByIdAndDelete(orderId);
+   res.status(200).json(deletedOrder);
   } catch (error) {
     next(error)
   }

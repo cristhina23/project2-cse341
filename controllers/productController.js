@@ -117,20 +117,8 @@ const updateProductById = async (req, res, next) => {
 const deleteProductById = async (req, res, next) => {
   try {
     const productId = req.params.id;
-
-    const deletedProduct = await Product.findByIdAndDelete(productID);
-
-    if (!deletedProduct) {
-      const error = new Error("Product not found");
-      error.status = 404;
-      return next(error);
-    }
-
-    res.status(200).json({
-      success: true,
-      data: deletedProduct,
-      message: "Product deleted successfully"
-    });
+       const deletedProduct = await Product.findByIdAndDelete(productId);
+       res.status(200).json(deletedProduct);
   } catch (error) {
     next(error)
   }
