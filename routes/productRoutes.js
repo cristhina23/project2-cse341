@@ -26,6 +26,6 @@ router.get('/',
    router.delete('/:id',
     /* #swagger.tags = ['Products']
      #swagger.description = 'Delete a product' */
-   updateProductById)
+    deleteProductById)
 
   module.exports = router;
