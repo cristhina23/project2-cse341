@@ -18,7 +18,11 @@ app.use(express.json());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app
   .use(bodyParser.json())
-  .use(cors());
+  .use(cors({
+  origin: "*", 
+  methods: "GET,POST,PUT,DELETE",
+  allowedHeaders: "Content-Type,Authorization"
+}));
 
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/userRoutes'));
