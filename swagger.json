@@ -5,10 +5,9 @@
     "description": "Store API",
     "version": "1.0.0"
   },
-  "host": "https://cse341-stnx.onrender.com",
+  "host": "cse341-stnx.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http",
     "https"
   ],
   "paths": {
